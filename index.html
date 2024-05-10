@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Co Ca-ro</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<p id="screen">
+
+</p>
+<button onclick="playGame()">Start</button>
+<script>
+    let arr = [
+        ['','','',''],
+        ['','','',''],
+        ['','','',''],
+        ['','','',''],
+    ];
+    let player = 1;
+    function veBanCo(){
+        let banCo = "<table>";
+        for (let i = 0; i < arr.length; i++) {
+            banCo += "<tr>";
+            for (let j = 0; j < arr[i].length; j++) {
+                banCo += "<td>" + arr[i][j] + "</td>";
+            }
+            banCo += "</tr>";
+        }
+        banCo += "</table>";
+        document.getElementById("screen").innerHTML= banCo;
+    }
+    veBanCo();
+
+
+function playGame() {
+    let x = +prompt('nhap hang:');
+    let y = +prompt('nhap cot:');
+    if (x > arr.length - 1 || y > arr.length - 1){
+        alert('ban nhap sai');
+    } else {
+        if (arr[x][y] === ''){
+            if (player === 1) {
+                arr[x][y] = 'X';
+                player = 2;
+                veBanCo();
+                checkWin();
+            } else {
+                arr[x][y] = 'o';
+                player = 1;
+                veBanCo();
+                checkWin();
+            }
+        } else {
+            alert('ban da chon');
+            playGame();
+        }
+    }
+}
+function checkWin() {
+    let check = false;
+    let winX='';
+    let wino='';
+    for (let i = 0; i < arr.length; i++){
+        for (let j = 0; j < arr.length; j++ ) {
+            if (arr[i][j] === 'X') {
+                winX += arr[i][j];
+            }
+            if (arr[i][j] === 'o') {
+                wino += arr[i][j];
+            }
+        }
+        // alert(win);
+            if (winX  === 'XXXX'|| wino === 'oooo') {
+                check = true;
+                break;
+            }
+    }
+    winX='';
+    wino='';
+    for (let j = 0; j < arr.length; j++){
+        for (let i = 0; i < arr.length; i++ ) {
+            if (arr[i][j] === 'X') {
+                winX += arr[i][j];
+            }
+            if (arr[i][j] === 'o') {
+                wino += arr[i][j];
+            }
+        }
+        if (winX  === 'XXXX'|| wino === 'oooo') {
+            check = true;
+            break;
+        }
+    }
+    winX='';
+    wino='';
+    for (let i = 0; i < arr.length; i++){
+        if (arr[i][i] === 'X') {
+            winX += arr[i][i];
+        }
+        if (arr[i][i] === 'o') {
+            wino += arr[i][i];
+        }
+        if (winX  === 'XXXX' || wino === 'oooo') {
+            check = true;
+            break;
+        }
+    }
+    winX='';
+    wino='';
+    for (let i = 0; i < arr.length; i++){
+        for (let j = arr.length-1; j >=0; j--) {
+            if (arr[i][j] === 'X') {
+                winX += arr[i][j];
+            }
+            if (arr[i][j] === 'o') {
+                wino += arr[i][j];
+            }
+        }
+        if (winX  === 'XXXX'|| wino === 'oooo') {
+            check = true;
+            break;
+        }
+    }
+    if (check) {
+       // alert(winX);
+        alert('you win');
+        arr = [
+            ['','','',''],
+            ['','','',''],
+            ['','','',''],
+            ['','','',''],
+        ];
+        veBanCo();
+    }
+}
+</script>
+</body>
+</html>
